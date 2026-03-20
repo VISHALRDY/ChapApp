@@ -1,0 +1,156 @@
+.panel {
+  display: flex; flex-direction: column;
+  height: 100vh; overflow: hidden;
+  background: var(--bg); position: relative;
+}
+.bgPattern {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, var(--surface2) 1px, transparent 0);
+  background-size: 28px 28px; opacity: 0.35;
+}
+
+/* Empty state */
+.empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; gap: 14px; background: var(--bg); position: relative; z-index: 1;
+}
+.emptyIcon {
+  width: 80px; height: 80px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; display: flex; align-items: center; justify-content: center;
+  font-size: 36px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.emptyTitle { font-family: var(--font-head); font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
+.emptySub { color: var(--text-muted); font-size: 14px; text-align: center; max-width: 260px; line-height: 1.6; }
+.emptyHints { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.hint {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--text-muted);
+}
+
+/* Header */
+.header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 24px; border-bottom: 1px solid var(--border);
+  background: var(--surface); position: relative; z-index: 2;
+}
+.headerInfo { flex: 1; }
+.peerName { font-family: var(--font-head); font-size: 16px; font-weight: 700; }
+.peerStatus { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; margin-top: 1px; }
+.peerStatus.typing { color: var(--accent); }
+.onlineDot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--online);
+  display: inline-block; box-shadow: 0 0 5px var(--online);
+}
+.typingText { display: flex; align-items: center; gap: 4px; color: var(--accent); font-style: italic; }
+.headerActions { display: flex; align-items: center; gap: 8px; }
+.msgCount {
+  font-size: 11px; color: var(--text-dim);
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 3px 10px;
+}
+
+/* Avatar */
+.avatar {
+  border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 700; color: #fff;
+}
+.lg { width: 42px; height: 42px; font-size: 16px; }
+
+/* Messages */
+.messages {
+  flex: 1; overflow-y: auto; padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 3px;
+  position: relative; z-index: 1;
+}
+.dateDivider {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-dim); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin: 14px 0 8px;
+}
+.dateDivider::before, .dateDivider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.msgRow {
+  display: flex; flex-direction: column; gap: 2px;
+  animation: msgIn 0.2s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes msgIn {
+  from { opacity:0; transform: translateY(8px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.msgRow.mine  { align-items: flex-end; }
+.msgRow.theirs { align-items: flex-start; }
+
+.bubble {
+  max-width: 62%; padding: 10px 14px; border-radius: 20px;
+  font-size: 14.5px; line-height: 1.5; word-break: break-word;
+}
+.theirs .bubble {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-bottom-left-radius: 5px;
+}
+.mine .bubble {
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff; border-bottom-right-radius: 5px;
+}
+.meta { display: flex; align-items: center; gap: 4px; padding: 0 4px; }
+.time { font-size: 10.5px; color: var(--text-dim); }
+.statusSent      { font-size: 10px; color: var(--text-dim); }
+.statusDelivered { font-size: 10px; color: var(--text-muted); }
+.statusRead      { font-size: 10px; color: var(--accent); }
+
+/* Typing bubble */
+.typingBubble { display: flex; align-items: center; gap: 4px; padding: 12px 16px; min-width: 52px; }
+.d1, .d2, .d3 {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted);
+  animation: bounce 1.2s infinite ease-in-out;
+}
+.d2 { animation-delay: 0.2s; }
+.d3 { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%            { transform: translateY(-6px); }
+}
+
+/* Typing dots in header */
+.td1, .td2, .td3 {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  display: inline-block; animation: bounce 1.2s infinite ease-in-out;
+}
+.td2 { animation-delay: 0.2s; }
+.td3 { animation-delay: 0.4s; }
+
+/* Input */
+.inputArea {
+  padding: 12px 24px 16px; border-top: 1px solid var(--border);
+  background: var(--surface); position: relative; z-index: 2;
+}
+.inputWrapper {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 50px; padding: 8px 8px 8px 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.inputWrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.input { flex: 1; background: transparent; border: none; outline: none; color: var(--text); font-size: 15px; }
+.input::placeholder { color: var(--text-dim); }
+.sendBtn {
+  width: 38px; height: 38px; flex-shrink: 0;
+  background: var(--surface3); border: 1px solid var(--border);
+  border-radius: 50%; color: var(--text-dim); font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.sendBtn.sendActive {
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  border-color: transparent; color: #fff;
+  box-shadow: 0 4px 12px rgba(108,99,255,0.4);
+}
+.sendBtn.sendActive:hover { transform: scale(1.06); }
+.sendBtn.sendActive:active { transform: scale(0.94); }
+.inputHint { font-size: 10.5px; color: var(--text-dim); text-align: center; margin-top: 6px; }
