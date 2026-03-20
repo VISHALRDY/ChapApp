@@ -1,7 +1,7 @@
 import * as signalR from '@microsoft/signalr';
 
-export const API_BASE = 'http://localhost:5271/api'
-export const HUB_URL  = 'http://localhost:5271/chatHub'
+export const API_BASE = 'https://chapapp-backend-hscqa2b0g6atdugz.centralus-01.azurewebsites.net/api'
+export const HUB_URL  = 'https://chapapp-backend-hscqa2b0g6atdugz.centralus-01.azurewebsites.net/chatHub'
 
 // ── Auth ──────────────────────────────────────────────────────────
 export async function apiRegister(name, email, password) {
