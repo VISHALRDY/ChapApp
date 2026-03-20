@@ -22,12 +22,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '16'
 
       - name: Install and Build
         working-directory: chapapp-vite
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+          CI: false
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Deploy to Azure Static Web Apps
